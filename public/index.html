@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>submit demo</title>
+  <style>
+  p {
+    margin: 0;
+    color: blue;
+  }
+  div,p {
+    margin-left: 10px;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+<p>Type 'correct' to validate.</p>
+<form id="myForm" action="">
+  <div>
+    <input id="post" type="text" >
+    <input id="tags" type="text" >
+    <input type="file" onchange="readFile()">
+    <input type="submit">
+  </div>
+</form>
+<span></span>
+
+<script>
+var uploadedFile ;
+
+
+function readFile(values){
+//  var preview = document.querySelector('img');
+ var file    = document.querySelector('input[type=file]').files[0];
+ var reader  = new FileReader();
+
+ reader.addEventListener("load", function () {
+   uploadedFile = reader.result;
+ }, false);
+
+ if (file) {
+   reader.readAsDataURL(file);
+ }
+}
+
+
+$( "form" ).submit(function( event ) {
+
+
+  var $inputs = $('#myForm :input');
+
+      // not sure if you wanted this, but I thought I'd add it.
+      // get an associative array of just the values.
+      var values = {};
+
+      values["name"] = $('#post').val();
+      values["image"] = uploadedFile;
+      values["tags"] = $('#tags').val().split(',');
+
+
+      var posting = $.post('http://localhost:3000/api',values);
+
+      posting.done(function(data){
+          console.log(data);
+      });
+  event.preventDefault();
+});
+</script>
+
+</body>
+</html>

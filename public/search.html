@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>submit demo</title>
+  <style>
+  p {
+    margin: 0;
+    color: blue;
+  }
+  div,p {
+    margin-left: 10px;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+<p>Type 'correct' to validate.</p>
+
+<input id="term" type="text" >
+<input type="button" value="search" onclick=search() >
+<img id="test" src=""/>
+
+<span></span>
+
+<script>
+
+function search(){
+  var term = $('#term').val();
+  var imageHolder = document.querySelector('img');
+  var results = $.get("http://localhost:3000/api?tag="+term);
+  results.done(function(data){
+
+      $.each(data, function(){
+        if(this.image){
+            console.log(this.image);
+            imageHolder.src = this.image;
+        }
+
+      });
+
+    });
+
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>
