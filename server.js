@@ -17,7 +17,8 @@ var router = express.Router();              // get an instance of the express Ro
 
 var MongoClient = mongodb.MongoClient;
 
-var url = 'mongodb://192.168.99.100:27017/test';
+//var url = 'mongodb://192.168.99.100:27017/test';
+var url = 'mongodb://test:test@ds015928.mongolab.com:15928/postpic';
 
 
 mongoose.connect(url);
